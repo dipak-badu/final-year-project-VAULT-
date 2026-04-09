@@ -5,7 +5,6 @@ const authMiddleware = async (req, res, next) => {
   try {
     let token;
 
-    // Expect: Authorization: Bearer <token>
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer")

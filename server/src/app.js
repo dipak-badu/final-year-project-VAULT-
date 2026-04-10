@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import errorMiddleware from "./middleware/errorhandler.js";
+import auth from "./routes/auth.route.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // connect database
 connectDB();
@@ -25,7 +27,7 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
-// app.use("/api/auth", authRoutes);
+app.use("/api/auth", auth);
 // app.use("/api/expenses", expenseRoutes);
 // app.use("/api/income", incomeRoutes);
 

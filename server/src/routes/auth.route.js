@@ -6,6 +6,7 @@ import { loginSchema, registerSchema } from "../validator/auth.validator.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import { success } from "zod";
+import generateRessetToken from "../utils/generateResetToken.js";
 
 const router = express.Router();
 
@@ -85,4 +86,67 @@ router.post(
   }),
 );
 
+router.post(
+  "/forget-password",
+  asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new ExpressError("User not found!!", 404);
+    }
+    const resetToken = generateRessetToken(user._id);
+    User.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+
+    await user.save();
+    const resetLink = `http:localhost:/reset-password/${resetToken}`;
+    res.status(200).json({
+      success: true,
+      message: "password reset token generated",
+      resetLink,
+    });
+  }),
+);
+
+router.post(
+  "/reset-password/:token",
+  asyncHandler(async (req, res) => {
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password) {
+      throw new ExpressError("Password is required", 400);
+    }
+
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_RESET_SECRET);
+    } catch (error) {
+      throw new ExpressError("Invalid or expired token", 400);
+    }
+
+    const user = await User.findOne({
+      _id: decoded.userId,
+      resetPasswordToken: token,
+      resetPasswordExpires: { $gt: Date.now() },
+    }).select("+password");
+
+    if (!user) {
+      throw new ExpressError("Invalid or expired token", 400);
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    user.password = hashedPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Password reset successfully",
+    });
+  }),
+);
 export default router;

@@ -39,7 +39,15 @@ const userSchema = new mongoose.Schema(
         ref: "Expense",
       },
     ],
+
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
   },
+
   { timestamps: true },
 );
 

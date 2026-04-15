@@ -42,11 +42,10 @@ const expenseSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-expenseSchema.pre("save", function (next) {
+expenseSchema.pre("save", function () {
   const d = new Date(this.date);
   this.month = d.getMonth() + 1;
   this.year = d.getFullYear();
-  next();
 });
 
 export default mongoose.model("Expense", expenseSchema);

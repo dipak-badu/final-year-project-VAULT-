@@ -49,7 +49,13 @@ router.get(
     const limitNumber = Math.max(parseInt(limit, 10) || 10, 1);
     const skip = (pageNumber - 1) * limitNumber;
 
-    const allowedSortFields = ["date", "amount", "createdAt", "name", "category"];
+    const allowedSortFields = [
+      "date",
+      "amount",
+      "createdAt",
+      "name",
+      "category",
+    ];
     const sortField = allowedSortFields.includes(sortBy) ? sortBy : "date";
     const order = sortOrder === "asc" ? 1 : -1;
 
@@ -161,10 +167,5 @@ router.delete(
     });
   }),
 );
-
-
-
-
-
 
 export default router;

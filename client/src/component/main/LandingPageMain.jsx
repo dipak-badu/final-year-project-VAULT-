@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 export default function LandingPageMain() {
   return (
     <main className="w-full min-h-screen bg-radial from-slate-800  to-black overflow-hidden">
@@ -24,15 +25,21 @@ export default function LandingPageMain() {
               modern analytics and secure tracking.
             </p>
 
-            {/* Buttons */}
+            {/* NavLinks */}
             <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:justify-center  md:items-center lg:justify-start">
-              <button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-medium transition duration-300 shadow-lg w-full sm:w-auto cursor-pointer">
+              <NavLink
+                className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-medium transition duration-300 shadow-lg w-full sm:w-auto cursor-pointer"
+                to="/"
+              >
                 Open Account
-              </button>
+              </NavLink>
 
-              <button className="text-white border border-slate-700 hover:border-slate-500 hover:bg-slate-900 px-8 py-3 rounded-lg font-medium transition duration-300 w-full sm:w-auto cursor-pointer">
+              <NavLink
+                className="text-white border border-slate-700 hover:border-slate-500 hover:bg-slate-900 px-8 py-3 rounded-lg font-medium transition duration-300 w-full sm:w-auto cursor-pointer"
+                to="/"
+              >
                 View Platform →
-              </button>
+              </NavLink>
             </div>
           </div>
 

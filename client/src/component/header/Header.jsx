@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export default function Header() {
   return (
     <header
@@ -14,33 +16,39 @@ export default function Header() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-8">
-          <a
-            href="#features"
+          <NavLink
+            to="/features"
             className="text-gray-300 hover:text-white transition"
           >
             Features
-          </a>
-          <a
-            href="#pricing"
+          </NavLink>
+          <NavLink
+            to="/pricing"
             className="text-gray-300 hover:text-white transition"
           >
             Pricing
-          </a>
-          <a
-            href="#about"
+          </NavLink>
+          <NavLink
+            to="/about"
             className="text-gray-300 hover:text-white transition"
           >
             About
-          </a>
+          </NavLink>
         </nav>
 
         <div className="flex items-center gap-4">
-          <button className="text-gray-300 hover:text-white transition font-medium">
+          <NavLink
+            className="text-gray-300 hover:text-white transition font-medium"
+            to="/"
+          >
             Login
-          </button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition">
+          </NavLink>
+          <NavLink
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition"
+            to="/"
+          >
             Get Started
-          </button>
+          </NavLink>
         </div>
       </div>
     </header>

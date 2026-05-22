@@ -39,13 +39,13 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <NavLink
             className="text-gray-300 hover:text-white transition font-medium"
-            to="/"
+            to="/login"
           >
             Login
           </NavLink>
           <NavLink
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition"
-            to="/"
+            to="/login"
           >
             Get Started
           </NavLink>

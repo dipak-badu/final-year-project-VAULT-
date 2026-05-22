@@ -29,14 +29,14 @@ export default function LandingPageMain() {
             <div className="flex flex-col sm:flex-row items-center lg:items-start gap-4 md:justify-center  md:items-center lg:justify-start">
               <NavLink
                 className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-lg font-medium transition duration-300 shadow-lg w-full sm:w-auto cursor-pointer"
-                to="/"
+                to="/login"
               >
                 Open Account
               </NavLink>
 
               <NavLink
                 className="text-white border border-slate-700 hover:border-slate-500 hover:bg-slate-900 px-8 py-3 rounded-lg font-medium transition duration-300 w-full sm:w-auto cursor-pointer"
-                to="/"
+                to="/platform"
               >
                 View Platform →
               </NavLink>

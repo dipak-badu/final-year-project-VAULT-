@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -7,7 +8,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>Expense Tracker</h1>
+        <LandingPage />
       </div>
     </>
   );

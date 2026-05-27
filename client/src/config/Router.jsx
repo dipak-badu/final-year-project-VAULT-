@@ -1,11 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import RegisterPage from "../pages/RegisterPage";
-
+import LoginPage from "../pages/LoginPage";
+import ForgetPassword from "../pages/ForgetPassword";
 const routes = [
   { path: "/", element: <LandingPage /> },
 
-  { path: "/login", element: <RegisterPage /> },
+  { path: "/register", element: <RegisterPage /> },
+  { path: "/login", element: <LoginPage /> },
+
+  { path: "/forgot-password", element: <ForgetPassword /> },
 
   {
     path: "*",

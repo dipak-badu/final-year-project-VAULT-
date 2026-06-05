@@ -1,91 +1,137 @@
 import {
-  LayoutDashboard,
-  ReceiptText,
-  Wallet,
-  BarChart3,
-  Settings,
-  CircleHelp,
-  Plus,
-  Search,
+    LayoutDashboard,
+    ReceiptText,
+    Wallet,
+    BarChart3,
+    Settings,
+    CircleHelp,
+    Plus,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
-export default function Sidebar() {
-  return (
-    <>
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#111118] border-r border-gray-800 flex flex-col">
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-indigo-400">VAULT</h1>
-          <p className="text-xs text-gray-500 tracking-widest">
-            PREMIUM FINANCE
-          </p>
-        </div>
+export default function Sidebar({ mobile = false }) {
+    const navItems = [
+        {
+            name: "Overview",
+            icon: LayoutDashboard,
+            path: "/user",
+        },
+        {
+            name: "Transactions",
+            icon: ReceiptText,
+            path: "/user/transactions",
+        },
+        {
+            name: "Budgets",
+            icon: Wallet,
+            path: "/user/budgets",
+        },
+        {
+            name: "Reports",
+            icon: BarChart3,
+            path: "/user/reports",
+        },
+    ];
 
-        <nav className="flex-1 px-4">
-          <ul className="space-y-2">
-            <li>
-              <NavLink
-                className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800"
-                to="/user"
-              >
-                <LayoutDashboard size={18} />
-                Overview
-              </NavLink>
-            </li>
+    // Mobile Bottom Navigation
+    if (mobile) {
+        return (
+            <nav className="w-full bg-[#111118] border-t border-gray-800">
+                <ul className="relative flex items-center justify-around px-2 py-3">
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
 
-            <li>
-              <NavLink
-                className="flex items-center gap-3 w-full p-3 rounded-lg bg-indigo-500/20 border-r-4 border-indigo-400"
-                to="/user/transactions"
-              >
-                <ReceiptText size={18} />
-                Transactions
-              </NavLink>
-            </li>
+                        return (
+                            <li key={item.path}>
+                                <NavLink
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `flex flex-col items-center gap-1 text-xs transition ${isActive
+                                            ? "text-indigo-400"
+                                            : "text-gray-400 hover:text-white"
+                                        }`
+                                    }
+                                >
+                                    <Icon size={20} />
+                                    <span>{item.name}</span>
+                                </NavLink>
+                            </li>
+                        );
+                    })}
 
-            <li>
-              <NavLink
-                className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800"
-                to="/user/budgets"
-              >
-                <Wallet size={18} />
-                Budgets
-              </NavLink>
-            </li>
+                    <li>
+                        <NavLink
+                            to="/user/new-transaction"
+                            className="absolute right-4 -top-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-lg"
+                        >
+                            <Plus size={24} />
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
 
-            <li>
-              <NavLink
-                className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800"
-                to="/user/reports"
-              >
-                <BarChart3 size={18} />
-                Reports
-              </NavLink>
-            </li>
-          </ul>
+    // Desktop Sidebar
+    return (
+        <aside className="flex h-screen w-64 flex-col bg-[#111118] border-r border-gray-800">
+            <div className="p-6">
+                <h1 className="text-3xl font-bold text-indigo-400">VAULT</h1>
+                <p className="text-xs tracking-widest text-gray-500">
+                    PREMIUM FINANCE
+                </p>
+            </div>
 
-          <NavLink
-            className="w-full mt-10 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-medium"
-            to="/user/new-transaction"
-          >
-            <Plus size={18} />
-            New Transaction
-          </NavLink>
-        </nav>
+            <nav className="flex-1 px-4">
+                <ul className="space-y-2">
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
 
-        <div className="p-4 border-t border-gray-800">
-          <NavLink className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800">
-            <Settings size={18} />
-            Settings
-          </NavLink>
+                        return (
+                            <li key={item.path}>
+                                <NavLink
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `flex items-center gap-3 rounded-lg p-3 transition ${isActive
+                                            ? "bg-indigo-500/20 border-r-4 border-indigo-400"
+                                            : "hover:bg-gray-800"
+                                        }`
+                                    }
+                                >
+                                    <Icon size={18} />
+                                    {item.name}
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+                </ul>
 
-          <NavLink className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800">
-            <CircleHelp size={18} />
-            Support
-          </NavLink>
-        </div>
-      </aside>
-    </>
-  );
+                <NavLink
+                    to="/user/new-transaction"
+                    className="mt-10 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
+                >
+                    <Plus size={18} />
+                    New Transaction
+                </NavLink>
+            </nav>
+
+            <div className="border-t border-gray-800 p-4">
+                <NavLink
+                    to="/user/settings"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <Settings size={18} />
+                    Settings
+                </NavLink>
+
+                <NavLink
+                    to="/user/support"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <CircleHelp size={18} />
+                    Support
+                </NavLink>
+            </div>
+        </aside>
+    );
 }

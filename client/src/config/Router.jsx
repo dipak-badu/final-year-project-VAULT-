@@ -4,6 +4,8 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import ForgetPassword from "../pages/ForgetPassword";
 import NewTransaction from "../pages/NewTransaction";
+import Dashboard from "../pages/dashboard/Dashboard";
+import Transaction from "../pages/dashboard/Transaction";
 // import UserDashboard from "../pages/dashboard/UserDashboard";
 const routes = [
   { path: "/", element: <LandingPage /> },
@@ -15,9 +17,9 @@ const routes = [
 
   {
     path: "/user",
-    element: <h1>User Dashboard</h1>,
+    element: <Dashboard />,
     children: [
-      { index: true, element: <h1>User Home</h1> },
+      { index: true, element: <Transaction /> },
       { path: "new-transaction", element: <NewTransaction /> },
     ],
   },

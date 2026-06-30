@@ -1,9 +1,11 @@
 import { useState } from "react";
 import TransactionLabel from "../component/transaction/TransactionLabe";
 import IncomeForm from "../component/form/IncomeForm";
+import { useNavigate } from "react-router-dom";
 
 export default function NewTransaction() {
   const [type, setType] = useState("expense");
+  const navigate = useNavigate();
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -14,7 +16,7 @@ export default function NewTransaction() {
 
           <button
             className="text-gray-400 hover:text-white hover:cursor-pointer"
-            onClick={() => setShowModal(true)}
+            onClick={() => navigate(-1)}
           >
             ✕
           </button>

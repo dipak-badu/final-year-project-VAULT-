@@ -17,7 +17,7 @@ const routes = [
   { path: "/forgot-password", element: <ForgetPassword /> },
 
   {
-    path: "/user",
+    path: "/user/",
     element: <Dashboard />,
     children: [
       { index: true, element: <Overview /> },

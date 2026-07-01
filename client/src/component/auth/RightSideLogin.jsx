@@ -4,8 +4,12 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../validator/Validator";
+import axiosInstance from "../../config/Apiclient";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function RightSideLogin() {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
@@ -20,15 +24,31 @@ export default function RightSideLogin() {
 
   const submitHandle = async (data) => {
     try {
-      const response = await axiosInstance.post("/auth/login", data);
-      console.log(response.data);
+      const response = await axiosInstance.post("auth/login", data);
+
+      // adjust based on your backend response shape
+      const { token, user } = response.data;
+
+      // save token + user in session storage
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("user", JSON.stringify(user));
+
+      toast.success("Login successful!");
+
+      // clear form fields if using react-hook-form
+      reset(); // from useForm()
+
+      navigate("/user");
     } catch (error) {
       console.error("Login error:", error);
+      toast.error(
+        error?.response?.data?.message || "Login failed. Please try again.",
+      );
     }
-
-    // Later:
-    // const response = await axiosInstance.post("/auth/login", data);
   };
+
+  // Later:
+  // const response = await axiosInstance.post("/auth/login", data);
 
   return (
     <div className="w-full lg:w-1/2 flex justify-center items-center px-6">

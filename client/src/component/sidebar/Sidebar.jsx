@@ -4,7 +4,7 @@ import {
     Wallet,
     BarChart3,
     Settings,
-    CircleHelp,
+    LogOut,
     Plus,
     CircleUserRound
 } from "lucide-react";
@@ -83,7 +83,7 @@ export default function Sidebar({ mobile = false }) {
                 </p>
             </div>
 
-            <nav className="flex-1 px-4">
+            <nav className="flex flex-col justify-between gap-30 px-4">
                 <ul className="space-y-2">
                     {navItems.map((item) => {
                         const Icon = item.icon;
@@ -107,16 +107,18 @@ export default function Sidebar({ mobile = false }) {
                     })}
                 </ul>
 
-                <NavLink
-                    to="/user/new-transaction"
-                    className="mt-10 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
-                >
-                    <Plus size={18} />
-                    New Transaction
-                </NavLink>
+                <div className="mt-10">
+                    <NavLink
+                        to="/user/new-transaction"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
+                    >
+                        <Plus size={18} />
+                        New Transaction
+                    </NavLink>
+                </div>
             </nav>
 
-            <div className="border-t border-gray-800 p-4">
+            <div className="border-t mt-5 border-gray-800 p-4">
                 <NavLink
                     to="/user/settings"
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
@@ -126,20 +128,21 @@ export default function Sidebar({ mobile = false }) {
                 </NavLink>
 
                 <NavLink
-                    to="/user/support"
-                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
-                >
-                    <CircleHelp size={18} />
-                    Support
-                </NavLink>
-
-                <NavLink
                     to=""
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                 >
                     <CircleUserRound size={18} />
                     John Doe
                 </NavLink>
+
+                <NavLink
+                    to="/user/logout"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <LogOut size={18} />
+                    Logout
+                </NavLink>
+
             </div>
         </aside>
     );

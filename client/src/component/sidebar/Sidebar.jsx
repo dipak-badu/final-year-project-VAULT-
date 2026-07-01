@@ -6,6 +6,7 @@ import {
     Settings,
     CircleHelp,
     Plus,
+    CircleUserRound
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
@@ -130,6 +131,14 @@ export default function Sidebar({ mobile = false }) {
                 >
                     <CircleHelp size={18} />
                     Support
+                </NavLink>
+
+                <NavLink
+                    to=""
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <CircleUserRound size={18} />
+                    John Doe
                 </NavLink>
             </div>
         </aside>

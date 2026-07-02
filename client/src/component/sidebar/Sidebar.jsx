@@ -75,12 +75,12 @@ export default function Sidebar({ mobile = false }) {
 
                         {open && (
                             <div className="flex flex-col absolute bottom-16 right-4 w-48 rounded-lg bg-[#111118] border border-gray-800">
-                                <NavLink to="/user/profile" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                <NavLink to="profile" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
                                     <CircleUserRound size={18} />
                                     <span>John Doe</span>
                                 </NavLink>
 
-                                <NavLink to="/user/settings" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                <NavLink to="settings" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
                                     <Settings size={18} />
                                     <span>Settings</span>
                                 </NavLink>
@@ -94,7 +94,7 @@ export default function Sidebar({ mobile = false }) {
 
                         {/* // New Transaction Button */}
                         <NavLink
-                            to="/user/new-transaction"
+                            to="new-transaction"
                             className="absolute right-4 -top-15 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-lg"
                         >
                             <Plus size={24} />
@@ -141,7 +141,7 @@ export default function Sidebar({ mobile = false }) {
 
                 <div className="mt-10">
                     <NavLink
-                        to="/user/new-transaction"
+                        to="new-transaction"
                         className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
                     >
                         <Plus size={18} />
@@ -152,7 +152,7 @@ export default function Sidebar({ mobile = false }) {
 
             <div className="border-t mt-5 border-gray-800 p-4">
                 <NavLink
-                    to="/user/settings"
+                    to="settings"
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                 >
                     <Settings size={18} />
@@ -160,7 +160,7 @@ export default function Sidebar({ mobile = false }) {
                 </NavLink>
 
                 <NavLink
-                    to=""
+                    to="profile"
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                 >
                     <CircleUserRound size={18} />
@@ -168,7 +168,7 @@ export default function Sidebar({ mobile = false }) {
                 </NavLink>
 
                 <NavLink
-                    to="/user/logout"
+                    to="logout"
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                 >
                     <LogOut size={18} />
@@ -178,66 +178,67 @@ export default function Sidebar({ mobile = false }) {
             </div>
         </aside>
     );
+
+
+    // Desktop Sidebar
+    return (
+        <aside className="flex h-screen w-64 flex-col bg-[#111118] border-r border-gray-800">
+            <div className="p-6">
+                <h1 className="text-3xl font-bold text-indigo-400">VAULT</h1>
+                <p className="text-xs tracking-widest text-gray-500">PREMIUM FINANCE</p>
+            </div>
+
+            <nav className="flex-1 px-4">
+                <ul className="space-y-2">
+                    {navItems.map((item) => {
+                        const Icon = item.icon;
+
+                        return (
+                            <li key={item.path}>
+                                <NavLink
+                                    to={item.path}
+                                    className={({ isActive }) =>
+                                        `flex items-center gap-3 rounded-lg p-3 transition ${isActive
+                                            ? "bg-indigo-500/20 border-r-4 border-indigo-400"
+                                            : "hover:bg-gray-800"
+                                        }`
+                                    }
+                                >
+                                    <Icon size={18} />
+                                    {item.name}
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+                </ul>
+
+                <NavLink
+                    to="new-transaction"
+                    className="mt-10 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
+                >
+                    <Plus size={18} />
+                    New Transaction
+                </NavLink>
+            </nav>
+
+            <div className="border-t border-gray-800 p-4">
+                <NavLink
+                    to="settings"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <Settings size={18} />
+                    Settings
+                </NavLink>
+
+                <NavLink
+                    to="support"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <CircleHelp size={18} />
+                    Support
+                </NavLink>
+            </div>
+        </aside>
+    );
+
 }
-
-// Desktop Sidebar
-return (
-    <aside className="flex h-screen w-64 flex-col bg-[#111118] border-r border-gray-800">
-        <div className="p-6">
-            <h1 className="text-3xl font-bold text-indigo-400">VAULT</h1>
-            <p className="text-xs tracking-widest text-gray-500">PREMIUM FINANCE</p>
-        </div>
-
-        <nav className="flex-1 px-4">
-            <ul className="space-y-2">
-                {navItems.map((item) => {
-                    const Icon = item.icon;
-
-                    return (
-                        <li key={item.path}>
-                            <NavLink
-                                to={item.path}
-                                className={({ isActive }) =>
-                                    `flex items-center gap-3 rounded-lg p-3 transition ${isActive
-                                        ? "bg-indigo-500/20 border-r-4 border-indigo-400"
-                                        : "hover:bg-gray-800"
-                                    }`
-                                }
-                            >
-                                <Icon size={18} />
-                                {item.name}
-                            </NavLink>
-                        </li>
-                    );
-                })}
-            </ul>
-
-            <NavLink
-                to="new-transaction"
-                className="mt-10 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
-            >
-                <Plus size={18} />
-                New Transaction
-            </NavLink>
-        </nav>
-
-        <div className="border-t border-gray-800 p-4">
-            <NavLink
-                to="settings"
-                className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
-            >
-                <Settings size={18} />
-                Settings
-            </NavLink>
-
-            <NavLink
-                to="support"
-                className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
-            >
-                <CircleHelp size={18} />
-                Support
-            </NavLink>
-        </div>
-    </aside>
-);
-

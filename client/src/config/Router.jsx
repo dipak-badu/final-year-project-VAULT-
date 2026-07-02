@@ -8,6 +8,9 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import Transaction from "../pages/dashboard/Transaction";
 import Overview from "../pages/dashboard/Overview";
 // import UserDashboard from "../pages/dashboard/UserDashboard";
+
+import OwnerRoute from "./OwnerRoute";
+
 const routes = [
   { path: "/", element: <LandingPage /> },
 
@@ -17,8 +20,12 @@ const routes = [
   { path: "/forgot-password", element: <ForgetPassword /> },
 
   {
-    path: "/user/",
-    element: <Dashboard />,
+    path: "/user/:userId",
+    element: (
+      <OwnerRoute>
+        <Dashboard />{" "}
+      </OwnerRoute>
+    ),
     children: [
       { index: true, element: <Overview /> },
       { path: "new-transaction", element: <NewTransaction /> },

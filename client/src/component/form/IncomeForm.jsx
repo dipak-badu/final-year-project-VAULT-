@@ -125,7 +125,7 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
           className="w-full h-11 px-4 rounded-lg bg-[#0f1117] border border-white/10 text-white outline-none focus:border-indigo-500"
         >
           {options.map((item) => (
-            <option key={item} value={item} className="text-black">
+            <option key={item} value={item} className="text-white">
               {item}
             </option>
           ))}

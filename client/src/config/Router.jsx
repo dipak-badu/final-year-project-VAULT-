@@ -25,7 +25,7 @@ const routes = [
     element: (
       <OwnerRoute>
         <TransactionProvider>
-          <Dashboard />{" "}
+          <Dashboard />
         </TransactionProvider>
       </OwnerRoute>
     ),

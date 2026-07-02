@@ -19,7 +19,7 @@ export default function Sidebar({ mobile = false }) {
         {
             name: "Overview",
             icon: LayoutDashboard,
-            path: "user",
+            path: ".",
         },
         {
             name: "Transactions",

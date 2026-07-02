@@ -6,6 +6,7 @@ export default function AuthProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [token, setToken] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
+  import { toast } from "sonner";
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
@@ -23,6 +24,7 @@ export default function AuthProvider({ children }) {
     sessionStorage.setItem("user", JSON.stringify(normalizedUser));
     setToken(token);
     setAuthUser(normalizedUser);
+    console.log("User logged in:", normalizedUser);
   }, []);
 
   const logout = useCallback(() => {
@@ -30,6 +32,7 @@ export default function AuthProvider({ children }) {
     sessionStorage.removeItem("user");
     setToken(null);
     setAuthUser(null);
+    toast.success("Logged out successfully!");
   }, []);
 
   const value = { authUser, token, authLoading, login, logout, setAuthUser };

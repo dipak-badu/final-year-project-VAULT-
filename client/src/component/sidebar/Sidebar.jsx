@@ -80,9 +80,9 @@ export default function Sidebar({ mobile = false }) {
                             <div className="flex flex-col absolute bottom-16 right-4 w-48 rounded-lg bg-[#111118] border border-gray-800">
                                 <NavLink
                                     to="profile"
-                                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800 min-w-0 break-all"
                                 >
-                                    <CircleUserRound size={18} />
+                                    <CircleUserRound size={18} className="shrink-0" />
                                     <span>{authUser?.email || "Profile"}</span>
                                 </NavLink>
 

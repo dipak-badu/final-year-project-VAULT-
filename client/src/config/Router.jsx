@@ -10,6 +10,7 @@ import Overview from "../pages/dashboard/Overview";
 // import UserDashboard from "../pages/dashboard/UserDashboard";
 
 import OwnerRoute from "./OwnerRoute";
+import { TransactionProvider } from "../component/context/TransactionContext";
 
 const routes = [
   { path: "/", element: <LandingPage /> },
@@ -23,7 +24,9 @@ const routes = [
     path: "/user/:userId",
     element: (
       <OwnerRoute>
-        <Dashboard />{" "}
+        <TransactionProvider>
+          <Dashboard />{" "}
+        </TransactionProvider>
       </OwnerRoute>
     ),
     children: [

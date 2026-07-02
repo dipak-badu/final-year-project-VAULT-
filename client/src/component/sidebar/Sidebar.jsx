@@ -170,10 +170,10 @@ export default function Sidebar({ mobile = false }) {
 
         <NavLink
           to="profile"
-          className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+          className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800  "
         >
-          {authUser?.email || "Profile"}
           <CircleUserRound size={18} />
+          {authUser?.email || "Profile"}
         </NavLink>
 
         <NavLink

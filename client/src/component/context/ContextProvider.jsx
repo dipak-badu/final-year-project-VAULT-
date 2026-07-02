@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 import { useCallback } from "react";
+import { toast } from "sonner";
 export default function AuthProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
   const [token, setToken] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
-  import { toast } from "sonner";
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");

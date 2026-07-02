@@ -4,10 +4,13 @@ import {
     Wallet,
     BarChart3,
     Settings,
-    CircleHelp,
+    LogOut,
     Plus,
+    CircleUserRound,
+    Menu,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 export default function Sidebar({ mobile = false }) {
     const navItems = [
@@ -32,6 +35,9 @@ export default function Sidebar({ mobile = false }) {
             path: "/user/reports",
         },
     ];
+
+    // State to manage the open/close state of the user profile dropdown
+    const [open, setOpen] = useState(false);
 
     // Mobile Bottom Navigation
     if (mobile) {
@@ -60,9 +66,36 @@ export default function Sidebar({ mobile = false }) {
                     })}
 
                     <li>
+                        {/* // User Profile Dropdown */}
+                        <button
+                            onClick={() => setOpen(!open)}
+                            className="text-gray-400 hover:text-white active:">
+                            <Menu />
+                        </button>
+
+                        {open && (
+                            <div className="flex flex-col absolute bottom-16 right-4 w-48 rounded-lg bg-[#111118] border border-gray-800">
+                                <NavLink to="/user/profile" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                    <CircleUserRound size={18} />
+                                    <span>John Doe</span>
+                                </NavLink>
+
+                                <NavLink to="/user/settings" className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                    <Settings size={18} />
+                                    <span>Settings</span>
+                                </NavLink>
+
+                                <button className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                    <LogOut size={18} />
+                                    <span>Logout</span>
+                                </button>
+                            </div>
+                        )}
+
+                        {/* // New Transaction Button */}
                         <NavLink
                             to="/user/new-transaction"
-                            className="absolute right-4 -top-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-lg"
+                            className="absolute right-4 -top-15 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-500 text-white shadow-lg"
                         >
                             <Plus size={24} />
                         </NavLink>
@@ -82,7 +115,7 @@ export default function Sidebar({ mobile = false }) {
                 </p>
             </div>
 
-            <nav className="flex-1 px-4">
+            <nav className="flex flex-col justify-between gap-30 px-4">
                 <ul className="space-y-2">
                     {navItems.map((item) => {
                         const Icon = item.icon;
@@ -106,16 +139,18 @@ export default function Sidebar({ mobile = false }) {
                     })}
                 </ul>
 
-                <NavLink
-                    to="/user/new-transaction"
-                    className="mt-10 flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
-                >
-                    <Plus size={18} />
-                    New Transaction
-                </NavLink>
+                <div className="mt-10">
+                    <NavLink
+                        to="/user/new-transaction"
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"
+                    >
+                        <Plus size={18} />
+                        New Transaction
+                    </NavLink>
+                </div>
             </nav>
 
-            <div className="border-t border-gray-800 p-4">
+            <div className="border-t mt-5 border-gray-800 p-4">
                 <NavLink
                     to="/user/settings"
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
@@ -125,12 +160,21 @@ export default function Sidebar({ mobile = false }) {
                 </NavLink>
 
                 <NavLink
-                    to="/user/support"
+                    to=""
                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                 >
-                    <CircleHelp size={18} />
-                    Support
+                    <CircleUserRound size={18} />
+                    John Doe
                 </NavLink>
+
+                <NavLink
+                    to="/user/logout"
+                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                >
+                    <LogOut size={18} />
+                    Logout
+                </NavLink>
+
             </div>
         </aside>
     );

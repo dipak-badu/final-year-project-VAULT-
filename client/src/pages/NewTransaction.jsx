@@ -52,9 +52,17 @@ export default function NewTransaction() {
         </div>
 
         {type === "expense" ? (
-          <IncomeForm label="Category" />
+          <IncomeForm
+            label="Category"
+            type="expense"
+            onCancel={() => navigate(-1)}
+          />
         ) : (
-          <IncomeForm label="Source" />
+          <IncomeForm
+            label="Source"
+            type="income"
+            onCancel={() => navigate(-1)}
+          />
         )}
       </div>
     </div>

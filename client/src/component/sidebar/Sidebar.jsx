@@ -83,7 +83,7 @@ export default function Sidebar({ mobile = false }) {
                                     className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
                                 >
                                     <CircleUserRound size={18} />
-                                    <span>John Doe</span>
+                                    <span>{authUser?.email || "Profile"}</span>
                                 </NavLink>
 
                                 <NavLink
@@ -146,7 +146,7 @@ export default function Sidebar({ mobile = false }) {
                     })}
                 </ul>
 
-                <div>
+                <div className="mt-4">
                     <NavLink
                         to="new-transaction"
                         className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-3 font-medium hover:bg-blue-700"

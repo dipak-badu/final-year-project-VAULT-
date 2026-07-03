@@ -11,6 +11,7 @@ import Overview from "../pages/dashboard/Overview";
 
 import OwnerRoute from "./OwnerRoute";
 import { TransactionProvider } from "../component/context/TransactionContext";
+import Report from "../pages/dashboard/Report";
 
 const routes = [
   { path: "/", element: <LandingPage /> },
@@ -25,7 +26,7 @@ const routes = [
     element: (
       <OwnerRoute>
         <TransactionProvider>
-          <Dashboard />{" "}
+          <Dashboard />
         </TransactionProvider>
       </OwnerRoute>
     ),
@@ -34,7 +35,7 @@ const routes = [
       { path: "new-transaction", element: <NewTransaction /> },
       { path: "transactions", element: <Transaction /> },
       { path: "budgets", element: <h1>Budgets</h1> },
-      { path: "reports", element: <h1>Reports</h1> },
+      { path: "reports", element: <Report /> },
     ],
   },
 

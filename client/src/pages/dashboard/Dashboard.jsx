@@ -5,12 +5,12 @@ export default function Dashboard() {
     return (
         <div className="flex min-h-screen bg-black text-white">
             {/* Desktop Sidebar */}
-            <div className="hidden md:block  top-0 sticky h-screen w-64 bg-[#111118] border-r border-gray-800">
+            <div className="hidden md:block fixed top-0 left-0 w-64 h-screen bg-[#111118] border-r border-gray-800">
                 <Sidebar />
             </div>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-x-hidden p-4 sm:p-6 md:p-8 pb-24 md:pb-8">
+            <main className="md:ml-64 flex-1 overflow-x-hidden p-4 sm:p-6 md:p-8 pb-24 md:pb-8">
                 <Outlet />
             </main>
 

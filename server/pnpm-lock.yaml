@@ -549,9 +549,12 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
+<<<<<<< HEAD
   zod@4.4.3:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
+=======
+>>>>>>> server
 snapshots:
 
   '@mongodb-js/saslprep@1.4.6':
@@ -634,6 +637,7 @@ snapshots:
 
   content-type@1.0.5: {}
 
+<<<<<<< HEAD
   cookie-parser@1.4.7:
     dependencies:
       cookie: 0.7.2
@@ -641,6 +645,8 @@ snapshots:
 
   cookie-signature@1.0.6: {}
 
+=======
+>>>>>>> server
   cookie-signature@1.2.2: {}
 
   cookie@0.7.2: {}
@@ -1079,5 +1085,8 @@ snapshots:
       webidl-conversions: 7.0.0
 
   wrappy@1.0.2: {}
+<<<<<<< HEAD
 
   zod@4.4.3: {}
+=======
+>>>>>>> server

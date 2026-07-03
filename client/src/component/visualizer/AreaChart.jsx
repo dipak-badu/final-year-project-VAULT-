@@ -13,63 +13,63 @@ import {
 const productSales = [
     {
         name: 'Jan',
-        income: 4000,
-        expenses: 2400,
+        expenses: 4000,
+        income: 2400,
     },
     {
         name: 'Feb',
-        income: 3000,
-        expenses: 1398,
+        expenses: 3000,
+        income: 1398,
     },
     {
         name: 'Mar',
-        income: 2000,
-        expenses: 9800,
+        expenses: 2000,
+        income: 9800,
     },
     {
         name: 'Apr',
-        income: 2780,
-        expenses: 3908,
+        expenses: 2780,
+        income: 3908,
     },
     {
         name: 'May',
-        income: 1890,
-        expenses: 4800,
+        expenses: 1890,
+        income: 4800,
     },
     {
         name: 'Jun',
-        income: 2390,
-        expenses: 5800,
+        expenses: 2390,
+        income: 5800,
     },
     {
         name: 'Jul',
-        income: 3490,
-        expenses: 4300,
+        expenses: 3490,
+        income: 4300,
     },
     {
         name: 'Aug',
-        income: 3890,
-        expenses: 13000,
+        expenses: 3890,
+        income: 13000,
     },
     {
         name: 'Sep',
-        income: 4990,
-        expenses: 4400,
+        expenses: 4990,
+        income: 4400,
     },
     {
         name: 'Oct',
-        income: 5090,
-        expenses: 5000,
+        expenses: 5090,
+        income: 5000,
     },
     {
         name: 'Nov',
-        income: 5490,
-        expenses: 9000,
+        expenses: 5490,
+        income: 9000,
     },
     {
         name: 'Dec',
-        income: 6790,
-        expenses: 8300,
+        expenses: 6790,
+        income: 8300,
     },
 ];
 
@@ -90,17 +90,17 @@ const AreaChartCoponent = () => {
 
                 <Area
                     type="monotone"
-                    dataKey="income"
-                    stroke="#44ab6a"
-                    fill="#44ab6a"
+                    dataKey="expenses"
+                    stroke="#c42f2f"
+                    fill="#c42f2f"
                     stackId="1"
                 />
 
                 <Area
                     type="monotone"
-                    dataKey="expenses"
-                    stroke="#c42f2f"
-                    fill="#c42f2f"
+                    dataKey="income"
+                    stroke="#44ab6a"
+                    fill="#44ab6a"
                     stackId="1"
                 />
             </AreaChart>
@@ -113,12 +113,12 @@ const CustomTooltip = ({ active, payload, label }) => {
         return (
             <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
                 <p className="text-medium text-lg">{label}</p>
-                <p className="text-sm text-teal-400">
-                    Income:
+                <p className="text-sm text-red-400">
+                    expenses:
                     <span className="ml-2">Rs.{payload[0].value}</span>
                 </p>
-                <p className="text-sm text-red-400">
-                    Expenses:
+                <p className="text-sm text-teal-400">
+                    income:
                     <span className="ml-2">Rs.{payload[1].value}</span>
                 </p>
             </div>

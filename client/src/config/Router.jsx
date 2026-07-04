@@ -14,6 +14,7 @@ import OwnerRoute from "./OwnerRoute";
 import { TransactionProvider } from "../component/context/TransactionContext";
 import Report from "../pages/dashboard/Report";
 import { IncomeProvider } from "../component/context/INcomeContext";
+import NotFound from "../pages/error/NotFound";
 
 const routes = [
   { path: "/", element: <LandingPage /> },
@@ -44,7 +45,7 @@ const routes = [
 
   {
     path: "*",
-    element: <h1>404 Not Found</h1>,
+    element: <NotFound />,
   },
 ];
 

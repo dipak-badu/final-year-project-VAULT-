@@ -98,6 +98,14 @@ export default function Report() {
                                             color: "white",
                                         },
                                     },
+                                    tooltip: {
+                                        displayColors: false,
+                                        callbacks: {
+                                            label: function (context) {
+                                                return `Rs.${context.raw.toLocaleString("en-IN")}`;
+                                            },
+                                        },
+                                    },
                                 },
                             }}
                         />
@@ -124,6 +132,14 @@ export default function Report() {
                                         position: "bottom",
                                         labels: {
                                             color: "white",
+                                        },
+                                    },
+                                    tooltip: {
+                                        displayColors: false,
+                                        callbacks: {
+                                            label: function (context) {
+                                                return `Rs.${context.raw.toLocaleString("en-IN")}`;
+                                            },
                                         },
                                     },
                                 },

@@ -101,14 +101,14 @@ function CustomTooltip({ active, payload, label }) {
             <p className="text-green-400">
                 Income:
                 <span className="ml-2">
-                    ₹{payload.find((p) => p.dataKey === "income")?.value ?? 0}
+                    Rs.{payload.find((p) => p.dataKey === "income")?.value?.toLocaleString("en-IN") ?? 0}
                 </span>
             </p>
 
             <p className="text-red-400">
                 Expenses:
                 <span className="ml-2">
-                    ₹{payload.find((p) => p.dataKey === "expenses")?.value ?? 0}
+                    Rs.{payload.find((p) => p.dataKey === "expenses")?.value?.toLocaleString("en-IN") ?? 0}
                 </span>
             </p>
         </div>

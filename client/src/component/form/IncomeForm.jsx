@@ -72,7 +72,7 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
       });
 
       toast.success("Transaction saved");
-      navigate(`/user/${userId}/transactions`);
+      navigate(`/user/${userId}`);
     } catch (error) {
       console.log("FULL ERROR:", error);
 

@@ -83,7 +83,10 @@ export default function Transaction() {
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">TOTAL INCOMES</p>
           <h3 className="text-4xl font-bold mt-2">
-            ₹{Number(totalIncome).toFixed(2)}
+            Rs. {Number(totalIncome).toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </h3>
         </div>
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
@@ -93,7 +96,10 @@ export default function Transaction() {
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">BALANCE</p>
           <h3 className="text-4xl font-bold mt-2">
-            ₹{Number(totalIncome - expense).toFixed(2)}
+            Rs. {Number(totalIncome - expense).toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
             <br />
             {totalIncome - expense < 0 ? (
               <span className="text-red-400 text-lg ml-2">(Over Budget)</span>
@@ -129,7 +135,10 @@ export default function Transaction() {
 
               <div className="flex items-center gap-4">
                 <p className="text-2xl font-bold text-green-400">
-                  +₹{Number(item.amount).toFixed(2)}
+                  +Rs. {Number(item.amount).toLocaleString("en-IN", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </p>
 
                 <button

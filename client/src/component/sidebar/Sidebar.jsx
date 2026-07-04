@@ -94,7 +94,10 @@ export default function Sidebar({ mobile = false }) {
                                     <span>Settings</span>
                                 </NavLink>
 
-                                <button className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800">
+                                <button
+                                    className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                                    onClick={logout}
+                                >
                                     <LogOut size={18} />
                                     <span>Logout</span>
                                 </button>

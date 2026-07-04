@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import errorMiddleware from "./middleware/errorhandler.js";
 import auth from "./routes/auth.route.js";
 import expense from "./routes/expense.route.js";
+import income from "./routes/income.route.js";
 
 dotenv.config();
 
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", auth);
 app.use("/api/expense", expense);
-// app.use("/api/income", incomeRoutes);
+app.use("/api/income", income);
 
 // error handler  middleware
 app.use(errorMiddleware);

@@ -7,11 +7,13 @@ import NewTransaction from "../pages/NewTransaction";
 import Dashboard from "../pages/dashboard/Dashboard";
 import Transaction from "../pages/dashboard/Transaction";
 import Overview from "../pages/dashboard/Overview";
+import Budget from "../pages/dashboard/Budget";
 // import UserDashboard from "../pages/dashboard/UserDashboard";
 
 import OwnerRoute from "./OwnerRoute";
 import { TransactionProvider } from "../component/context/TransactionContext";
 import Report from "../pages/dashboard/Report";
+import { IncomeProvider } from "../component/context/INcomeContext";
 
 const routes = [
   { path: "/", element: <LandingPage /> },
@@ -25,16 +27,18 @@ const routes = [
     path: "/user/:userId",
     element: (
       <OwnerRoute>
-        <TransactionProvider>
-          <Dashboard />
-        </TransactionProvider>
+        <IncomeProvider>
+          <TransactionProvider>
+            <Dashboard />
+          </TransactionProvider>
+        </IncomeProvider>
       </OwnerRoute>
     ),
     children: [
       { index: true, element: <Overview /> },
       { path: "new-transaction", element: <NewTransaction /> },
       { path: "transactions", element: <Transaction /> },
-      { path: "budgets", element: <h1>Budgets</h1> },
+      { path: "budgets", element: <Budget /> },
       { path: "reports", element: <Report /> },
     ],
   },

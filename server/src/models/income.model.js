@@ -7,6 +7,10 @@ const incomeSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    name: {
+      type: String,
+      trim: true,
+    },
     amount: {
       type: Number,
       required: true,
@@ -35,11 +39,11 @@ const incomeSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-incomeSchema.pre("save", function (next) {
+incomeSchema.pre("save", function () {
   const d = new Date(this.date);
+
   this.month = d.getMonth() + 1;
   this.year = d.getFullYear();
-  next();
 });
 
 export default mongoose.model("Income", incomeSchema);

@@ -2,8 +2,8 @@ import express from "express";
 import ExpressError from "../utils/ExpressError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import authMiddleware from "../middleware/authMiddleware.js";
-import { incomeSchema } from "./../validator/income.validate";
-pull;
+import { incomeSchema } from "./../validator/income.validate.js";
+
 import Income from "./../models/income.model.js";
 
 const router = express.Router();
@@ -19,6 +19,7 @@ router.post("/addIncome", authMiddleware, async (req, res) => {
     const income = await Income.create({
       user: req.user.id, // from auth middleware
       amount: parsed.amount,
+      name: parsed.name,
       source: parsed.source,
       description: parsed.description || "",
       date: parsed.date ? new Date(parsed.date) : new Date(),
@@ -30,18 +31,12 @@ router.post("/addIncome", authMiddleware, async (req, res) => {
       income,
     });
   } catch (error) {
-    if (error?.name === "ZodError") {
-      return res.status(400).json({
-        success: false,
-        message: error.errors?.[0]?.message || "Validation failed",
-        errors: error.errors,
-      });
-    }
+    console.error(error);
+    console.error(error.stack);
 
     return res.status(500).json({
       success: false,
-      message: "Failed to add income",
-      error: error.message,
+      message: error.message,
     });
   }
 });
@@ -123,6 +118,7 @@ router.put("/editIncome/:id", authMiddleware, async (req, res) => {
     const updated = await Income.findOneAndUpdate(
       { _id: req.params.id, user: req.user.id },
       {
+        name: parsed.name,
         amount: parsed.amount,
         source: parsed.source,
         description: parsed.description || "",

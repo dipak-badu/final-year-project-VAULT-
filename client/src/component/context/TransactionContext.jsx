@@ -62,7 +62,7 @@ export function TransactionProvider({ children }) {
         date: payload.date,
       };
 
-      const res = await axiosInstance.post("/expense/addExpense", body);
+      const res = await axiosInstance.post("expense/addExpense", body);
       const created = res?.data?.expense;
 
       if (created) {
@@ -90,7 +90,7 @@ export function TransactionProvider({ children }) {
         date: payload.date,
       };
 
-      const res = await axiosInstance.put(`/expense/editExpense/${id}`, body);
+      const res = await axiosInstance.put(`expense/editExpense/${id}`, body);
       const updated = res?.data?.expense;
 
       if (updated) {
@@ -114,7 +114,7 @@ export function TransactionProvider({ children }) {
   // DELETE /api/expense/deleteExpense/:id
   const deleteTransaction = async (id) => {
     try {
-      const res = await axiosInstance.delete(`/expense/deleteExpense/${id}`);
+      const res = await axiosInstance.delete(`expense/deleteExpense/${id}`);
       setTransactions((prev) =>
         prev.filter((item) => String(item._id) !== String(id)),
       );

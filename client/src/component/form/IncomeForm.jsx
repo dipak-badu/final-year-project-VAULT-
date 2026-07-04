@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import TransactionLabel from "../transaction/TransactionLabe";
 import { useTransaction } from "../context/TransactionContext";
+import { useIncome } from "../context/INcomeContext";
 
 const expenseCategories = [
   "food ",
@@ -29,6 +30,7 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
   const navigate = useNavigate();
   const { userId } = useParams();
   const { addTransaction } = useTransaction();
+  const { addIncome } = useIncome();
 
   const {
     register,
@@ -40,17 +42,24 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
       amount: "",
       date: new Date().toISOString().slice(0, 10),
       description: "",
-      category: type === "expense" ? "Food & Dining" : "Salary",
+      source: type === "expense" ? "food " : "salary",
     },
   });
 
   const onSubmit = async (data) => {
+    console.log("Form Data:", data);
     try {
       if (type === "income") {
-        // Your backend currently supports only expense routes
-        toast.error(
-          "Income API not ready yet. Please add backend income route.",
-        );
+        await addIncome({
+          name: data.name || "Income",
+          amount: Number(data.amount),
+          source: data.source?.trim() || "",
+          description: data.description.trim() || "",
+          date: data.date,
+        });
+
+        toast.success("Income saved");
+        navigate(`/user/${userId}/budgets`);
         return;
       }
 
@@ -65,9 +74,14 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
       toast.success("Transaction saved");
       navigate(`/user/${userId}/transactions`);
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message || "Failed to save transaction",
-      );
+      console.log("FULL ERROR:", error);
+
+      if (error.response) {
+        console.log("Status:", error.response.status);
+        console.log("Response:", error.response.data);
+      }
+
+      toast.error(error?.message || "Failed to save transaction");
     }
   };
 
@@ -121,7 +135,9 @@ export default function IncomeForm({ label, type = "expense", onCancel }) {
       <div className="mb-6">
         <TransactionLabel>{label}</TransactionLabel>
         <select
-          {...register("category", { required: true })}
+          {...register(type === "income" ? "source" : "category", {
+            required: true,
+          })}
           className="w-full h-11 px-4 rounded-lg bg-[#0f1117] border border-white/10 text-white outline-none focus:border-indigo-500"
         >
           {options.map((item) => (

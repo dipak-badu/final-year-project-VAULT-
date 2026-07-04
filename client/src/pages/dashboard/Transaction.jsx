@@ -1,6 +1,7 @@
 import { Search, Pencil, Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTransaction } from "../../component/context/TransactionContext";
+import { useIncome } from "../../component/context/INcomeContext";
 
 export default function Transaction() {
   const {
@@ -11,6 +12,8 @@ export default function Transaction() {
     deleteTransaction,
     editTransaction,
   } = useTransaction();
+
+  const { totalIncome } = useIncome();
 
   const [search, setSearch] = useState("");
   const [editingItem, setEditingItem] = useState(null);
@@ -93,7 +96,11 @@ export default function Transaction() {
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">BALANCE</p>
           <h3 className="text-4xl font-bold mt-2">
-            ₹{Number(balance).toFixed(2)}
+            ₹{Number(totalIncome - expense).toFixed(2)}
+            <br />
+            {totalIncome - expense < 0 ? (
+              <span className="text-red-400 text-lg ml-2">(Over Budget)</span>
+            ) : null}
           </h3>
         </div>
       </div>

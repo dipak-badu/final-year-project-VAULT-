@@ -6,15 +6,15 @@ import { useTransaction } from "../context/TransactionContext";
 import { useIncome } from "../context/INcomeContext";
 
 const expenseCategories = [
-  "food ",
-  "transportation",
-  "shopping",
+  "food",
+  "transport",
+  "housing",
   "entertainment",
-  "bills",
   "health",
+  "shopping",
   "education",
   "utilities",
-  "Other",
+  "other",
 ];
 
 const incomeSources = [

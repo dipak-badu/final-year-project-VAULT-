@@ -1,129 +1,116 @@
-'use client';
 import {
-    AreaChart,
-    Area,
-    ResponsiveContainer,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-} from 'recharts';
+  AreaChart,
+  Area,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 
-const productSales = [
-    {
-        name: 'Jan',
-        expenses: 4000,
-        income: 2400,
-    },
-    {
-        name: 'Feb',
-        expenses: 3000,
-        income: 1398,
-    },
-    {
-        name: 'Mar',
-        expenses: 2000,
-        income: 9800,
-    },
-    {
-        name: 'Apr',
-        expenses: 2780,
-        income: 3908,
-    },
-    {
-        name: 'May',
-        expenses: 1890,
-        income: 4800,
-    },
-    {
-        name: 'Jun',
-        expenses: 2390,
-        income: 5800,
-    },
-    {
-        name: 'Jul',
-        expenses: 3490,
-        income: 4300,
-    },
-    {
-        name: 'Aug',
-        expenses: 3890,
-        income: 13000,
-    },
-    {
-        name: 'Sep',
-        expenses: 4990,
-        income: 4400,
-    },
-    {
-        name: 'Oct',
-        expenses: 5090,
-        income: 5000,
-    },
-    {
-        name: 'Nov',
-        expenses: 5490,
-        income: 9000,
-    },
-    {
-        name: 'Dec',
-        expenses: 6790,
-        income: 8300,
-    },
+import { useMemo } from "react";
+import { useTransaction } from "../context/TransactionContext";
+import { useIncome } from "../context/INcomeContext";
+
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
-const AreaChartCoponent = () => {
-    return (
-        <ResponsiveContainer width="100%" height={300}>
-            <AreaChart
-                width={500}
-                height={300}
-                data={productSales}
-            >
-                <YAxis />
-                <XAxis dataKey="name" />
-                <CartesianGrid strokeDasharray="5 5" />
+export default function AreaChartComponent() {
+  const { transactions = [] } = useTransaction();
+  const { incomes = [] } = useIncome();
 
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
+  const chartData = useMemo(() => {
+    const data = months.map((month) => ({
+      name: month,
+      income: 0,
+      expenses: 0,
+    }));
 
-                <Area
-                    type="monotone"
-                    dataKey="expenses"
-                    stroke="#c42f2f"
-                    fill="#c42f2f"
-                    stackId="1"
-                />
+    // Add incomes
+    incomes.forEach((income) => {
+      const monthIndex = new Date(income.date).getMonth();
+      data[monthIndex].income += Number(income.amount);
+    });
 
-                <Area
-                    type="monotone"
-                    dataKey="income"
-                    stroke="#44ab6a"
-                    fill="#44ab6a"
-                    stackId="1"
-                />
-            </AreaChart>
-        </ResponsiveContainer>
-    )
+    // Add expenses
+    transactions.forEach((expense) => {
+      const monthIndex = new Date(expense.date).getMonth();
+      data[monthIndex].expenses += Number(expense.amount);
+    });
+
+    return data;
+  }, [transactions, incomes]);
+
+  return (
+    <ResponsiveContainer width="100%" height={350}>
+      <AreaChart data={chartData}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#3b3b3b" />
+
+        <XAxis dataKey="name" tick={{ fill: "white" }} stroke="white" />
+
+        <YAxis tick={{ fill: "white" }} stroke="white" />
+
+        <Tooltip content={<CustomTooltip />} />
+
+        <Legend
+          wrapperStyle={{
+            color: "white",
+          }}
+        />
+
+        <Area
+          type="monotone"
+          dataKey="expenses"
+          stroke="#ef4444"
+          fill="#ef4444"
+          fillOpacity={0.4}
+        />
+
+        <Area
+          type="monotone"
+          dataKey="income"
+          stroke="#22c55e"
+          fill="#22c55e"
+          fillOpacity={0.4}
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
 }
 
-const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-        return (
-            <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
-                <p className="text-medium text-lg">{label}</p>
-                <p className="text-sm text-red-400">
-                    expenses:
-                    <span className="ml-2">Rs.{payload[0].value}</span>
-                </p>
-                <p className="text-sm text-teal-400">
-                    income:
-                    <span className="ml-2">Rs.{payload[1].value}</span>
-                </p>
-            </div>
-        )
-    }
-};
+function CustomTooltip({ active, payload, label }) {
+  if (!active || !payload?.length) return null;
 
-export default AreaChartCoponent;
+  return (
+    <div className="bg-[#16161d] border border-gray-700 rounded-lg p-4">
+      <p className="text-white font-semibold mb-2">{label}</p>
+
+      <p className="text-green-400">
+        Income:
+        <span className="ml-2">
+          ₹{payload.find((p) => p.dataKey === "income")?.value ?? 0}
+        </span>
+      </p>
+
+      <p className="text-red-400">
+        Expenses:
+        <span className="ml-2">
+          ₹{payload.find((p) => p.dataKey === "expenses")?.value ?? 0}
+        </span>
+      </p>
+    </div>
+  );
+}

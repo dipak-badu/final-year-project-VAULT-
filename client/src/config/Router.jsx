@@ -35,9 +35,8 @@ const routes = [
       </OwnerRoute>
     ),
     children: [
-      { index: true, element: <Overview /> },
+      { index: true, element: <Transaction /> },
       { path: "new-transaction", element: <NewTransaction /> },
-      { path: "transactions", element: <Transaction /> },
       { path: "budgets", element: <Budget /> },
       { path: "reports", element: <Report /> },
     ],

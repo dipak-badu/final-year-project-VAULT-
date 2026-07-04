@@ -147,6 +147,7 @@ export function TransactionProvider({ children }) {
       editTransaction,
       deleteTransaction,
       setTransactions,
+      expense,
     };
   }, [transactions, txLoading, pagination]);
 

@@ -1,5 +1,5 @@
 import { Navigate, useParams } from "react-router-dom";
-import { useAuth } from "../component/context/useAuth";
+import { useAuth } from "../component/context/UseAuth";
 
 export default function OwnerRoute({ children }) {
   const { authUser, token, authLoading } = useAuth();

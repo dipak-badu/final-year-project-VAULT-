@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/UseAuth";
 
 export default function Sidebar({ mobile = false }) {
   const { authUser, logout } = useAuth();
@@ -50,9 +50,10 @@ export default function Sidebar({ mobile = false }) {
                   to={item.path}
                   end={item.path === ""}
                   className={({ isActive }) =>
-                    `flex flex-col items-center gap-1 text-xs transition ${isActive
-                      ? "text-indigo-400"
-                      : "text-gray-400 hover:text-white"
+                    `flex flex-col items-center gap-1 text-xs transition ${
+                      isActive
+                        ? "text-indigo-400"
+                        : "text-gray-400 hover:text-white"
                     }`
                   }
                 >
@@ -132,9 +133,10 @@ export default function Sidebar({ mobile = false }) {
                   to={item.path}
                   end={item.path === ""}
                   className={({ isActive }) =>
-                    `flex items-center gap-3 rounded-lg p-3 transition ${isActive
-                      ? "bg-indigo-500/20 border-r-4 border-indigo-400"
-                      : "hover:bg-gray-800"
+                    `flex items-center gap-3 rounded-lg p-3 transition ${
+                      isActive
+                        ? "bg-indigo-500/20 border-r-4 border-indigo-400"
+                        : "hover:bg-gray-800"
                     }`
                   }
                 >

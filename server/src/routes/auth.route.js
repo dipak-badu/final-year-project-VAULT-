@@ -1,5 +1,5 @@
 import express from "express";
-import ExpressError from "../utils/ExpressError.js";
+import ExpressError from "../utils/expressError.js";
 import User from "../models/user.model.js";
 import asyncHandler from "./../utils/asyncHandler.js";
 import { loginSchema, registerSchema } from "../validator/auth.validator.js";

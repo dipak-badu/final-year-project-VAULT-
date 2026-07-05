@@ -1,5 +1,5 @@
 import express from "express";
-import ExpressError from "../utils/ExpressError.js";
+import ExpressError from "../utils/expressError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { expenseSchema } from "../validator/expense.validate.js";

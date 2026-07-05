@@ -14,7 +14,10 @@ const app = express();
 // middleware
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https:// http://localhost:5173/https://final-year-project-vault-3.onrender.com",
+    ],
     credentials: true,
   }),
 );

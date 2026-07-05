@@ -7,7 +7,7 @@ import { loginSchema } from "../validator/Validator";
 import axiosInstance from "../../config/Apiclient";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useAuth } from "../context/useAuth";
+import { useAuth } from "../context/UseAuth";
 
 export default function RightSideLogin() {
   const navigate = useNavigate();

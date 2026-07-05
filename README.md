@@ -202,26 +202,6 @@ http://localhost:5173
 
 ---
 
-# 📷 Screenshots
-
-You can add screenshots here after deployment.
-
-```
-Landing Page
-
-Dashboard
-
-Income Page
-
-Expense Page
-
-Budget Page
-
-Reports Page
-```
-
----
-
 # 📌 Future Improvements
 
 - Email Verification

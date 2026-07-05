@@ -64,7 +64,7 @@ export default function Transaction() {
       <div className="flex flex-col md:flex-row justify-between items-center mb-8">
         <h2 className="text-4xl mb-4 md:mb-0 font-bold">Incomes</h2>
 
-        <div className="relative">
+        <div className="relative w-full sm:w-auto">
           <Search
             size={18}
             className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
@@ -74,7 +74,7 @@ export default function Transaction() {
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="Search incomes..."
-            className="bg-[#14141E] border border-gray-700 rounded-xl pl-10 pr-4 py-3 w-80 outline-none"
+            className="bg-[#14141E] border border-gray-700 rounded-xl pl-10 pr-4 py-3 w-full sm:w-80 outline-none"
           />
         </div>
       </div>
@@ -82,8 +82,9 @@ export default function Transaction() {
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">TOTAL INCOMES</p>
-          <h3 className="text-4xl font-bold mt-2">
-            Rs. {Number(totalIncome).toLocaleString("en-IN", {
+          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
+            Rs.{" "}
+            {Number(totalIncome).toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
@@ -91,18 +92,23 @@ export default function Transaction() {
         </div>
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">NUMBER OF INCOMES</p>
-          <h3 className="text-4xl font-bold mt-2">{incomes.length}</h3>
+          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
+            {incomes.length}
+          </h3>
         </div>
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">BALANCE</p>
-          <h3 className="text-4xl font-bold mt-2">
-            Rs. {Number(totalIncome - expense).toLocaleString("en-IN", {
+          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
+            Rs.{" "}
+            {Number(totalIncome - expense).toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
             <br />
             {totalIncome - expense < 0 ? (
-              <span className="text-red-400 text-lg ml-2">(Over Budget)</span>
+              <span className="block text-red-400 text-sm sm:text-lg mt-2">
+                (Over Budget)
+              </span>
             ) : null}
           </h3>
         </div>
@@ -115,49 +121,56 @@ export default function Transaction() {
           filtered.map((item) => (
             <div
               key={item._id}
-              className="flex justify-between items-center p-6 border-b border-gray-800"
+              className="flex flex-col gap-4 p-4 sm:p-6 border-b border-gray-800"
             >
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-xl bg-gray-800"></div>
-                <div>
-                  <h4 className="font-semibold text-lg">
+              <div className="flex gap-4 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-gray-800 shrink-0"></div>
+
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold text-lg break-all">
                     {item.name || "Income"}
                   </h4>
-                  <p className="text-sm text-gray-400">
+
+                  <p className="text-sm text-gray-400 break-all">
                     {item.source || "Income"}
                     {item.description ? ` • ${item.description}` : ""}
                   </p>
+
                   <p className="text-xs text-gray-500 mt-1">
                     {new Date(item.date).toLocaleDateString()}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <p className="text-2xl font-bold text-green-400">
-                  +Rs. {Number(item.amount).toLocaleString("en-IN", {
+              <div className="flex items-center justify-between gap-3 flex-wrap">
+                <p className="text-lg sm:text-2xl font-bold text-green-400 break-all">
+                  +Rs.{" "}
+                  {Number(item.amount).toLocaleString("en-IN", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </p>
 
-                <button
-                  onClick={() =>
-                    setEditingItem({ ...item, date: item.date?.slice(0, 10) })
-                  }
-                  className="p-2 rounded-lg border border-gray-700 hover:bg-gray-800"
-                  title="Edit"
-                >
-                  <Pencil size={16} />
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() =>
+                      setEditingItem({
+                        ...item,
+                        date: item.date?.slice(0, 10),
+                      })
+                    }
+                    className="p-2 rounded-lg border border-gray-700 hover:bg-gray-800 shrink-0"
+                  >
+                    <Pencil size={16} />
+                  </button>
 
-                <button
-                  onClick={() => onDelete(item._id)}
-                  className="p-2 rounded-lg border border-red-500/40 text-red-400 hover:bg-red-500/10"
-                  title="Delete"
-                >
-                  <Trash2 size={16} />
-                </button>
+                  <button
+                    onClick={() => onDelete(item._id)}
+                    className="p-2 rounded-lg border border-red-500/40 text-red-400 hover:bg-red-500/10 shrink-0"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               </div>
             </div>
           ))

@@ -16,11 +16,14 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://final-year-project-vault-3.onrender.com",
+      "https://final-year-project-vault.vercel.app",
     ],
     credentials: true,
   }),
 );
+
+app.options("*", cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

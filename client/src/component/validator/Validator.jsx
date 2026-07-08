@@ -16,10 +16,10 @@ export const expenseSchema = z.object({
   amount: z.coerce.number().positive("Amount must be greater than 0"),
   category: z.enum([
     "food",
-    "transport",
-    "housing",
+    "trasing",
     "entertainment",
-    "health",
+    "heansport",
+    "houlth",
     "shopping",
     "education",
     "utilities",

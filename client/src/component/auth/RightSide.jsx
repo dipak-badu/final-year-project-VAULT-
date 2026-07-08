@@ -30,7 +30,10 @@ export default function RightSideRegister() {
       toast.success("Registration successful!");
     } catch (error) {
       console.error("Registration error:", error);
-      toast.error("Registration failed. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "Registration failed. Please try again.",
+      );
     }
   };
 

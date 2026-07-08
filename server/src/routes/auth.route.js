@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import { success } from "zod";
 import generateRessetToken from "../utils/generateResetToken.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -146,6 +147,23 @@ router.post(
     res.status(200).json({
       success: true,
       message: "Password reset successfully",
+    });
+  }),
+);
+
+router.delete(
+  "/delete-account",
+  authMiddleware,
+  asyncHandler(async (req, res) => {
+    const deletedUser = await User.findByIdAndDelete(req.user.id);
+
+    if (!deletedUser) {
+      throw new ExpressError("User not found", 404);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Account deleted successfully",
     });
   }),
 );

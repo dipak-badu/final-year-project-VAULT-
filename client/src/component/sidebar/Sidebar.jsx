@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useAuth } from "../context/UseAuth";
 
 export default function Sidebar({ mobile = false }) {
-  const { authUser, logout } = useAuth();
+  const { authUser, logout, deleteAccount } = useAuth();
   const navItems = [
     {
       name: "Transactions",
@@ -83,13 +83,14 @@ export default function Sidebar({ mobile = false }) {
                   <span>{authUser?.email || "Profile"}</span>
                 </NavLink>
 
-                <NavLink
+                <button
                   to="settings"
                   className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+                  onClick={deleteAccount}
                 >
                   <Settings size={18} />
-                  <span>Settings</span>
-                </NavLink>
+                  <span>Delete Account</span>
+                </button>
 
                 <button
                   className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
@@ -160,13 +161,14 @@ export default function Sidebar({ mobile = false }) {
       </nav>
 
       <div className="border-t mt-5 border-gray-800 p-4">
-        <NavLink
+        <button
           to="settings"
           className="flex items-center gap-3 rounded-lg p-3 hover:bg-gray-800"
+          onClick={deleteAccount}
         >
           <Settings size={18} />
-          Settings
-        </NavLink>
+          <span>Delete Account</span>
+        </button>
 
         <NavLink
           to="profile"

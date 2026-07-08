@@ -82,7 +82,7 @@ export default function RightSideLogin() {
           />
 
           <NavLink
-            to="/forgot-password"
+            to="*"
             className="text-sm text-gray-400 self-end hover:text-white hover:underline"
           >
             Forgot Password?

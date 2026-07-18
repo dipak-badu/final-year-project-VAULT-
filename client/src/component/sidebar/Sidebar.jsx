@@ -22,7 +22,7 @@ export default function Sidebar({ mobile = false }) {
       path: "",
     },
     {
-      name: "Budgets",
+      name: "Income",
       icon: Wallet,
       path: "budgets",
     },

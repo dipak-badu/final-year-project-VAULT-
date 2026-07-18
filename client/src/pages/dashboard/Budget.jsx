@@ -12,35 +12,97 @@ export default function Transaction() {
     editIncome,
     deleteIncome,
   } = useIncome();
-  const { expense, balance } = useTransaction();
+
+  const { transactions } = useTransaction();
+
+  const today = new Date();
+
+  const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
+  const [selectedYear, setSelectedYear] = useState(today.getFullYear());
 
   const [search, setSearch] = useState("");
   const [editingItem, setEditingItem] = useState(null);
   const [saving, setSaving] = useState(false);
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = useMemo(() => {
+    const allYears = incomes.map((i) => new Date(i.date).getFullYear());
+
+    const uniqueYears = [...new Set(allYears)].sort((a, b) => b - a);
+
+    return uniqueYears.length ? uniqueYears : [new Date().getFullYear()];
+  }, [incomes]);
+
+  const monthlyIncomes = useMemo(() => {
+    return incomes.filter((income) => {
+      const date = new Date(income.date);
+
+      return (
+        date.getMonth() === selectedMonth && date.getFullYear() === selectedYear
+      );
+    });
+  }, [incomes, selectedMonth, selectedYear]);
+
+  const monthlyIncome = useMemo(() => {
+    return monthlyIncomes.reduce((sum, item) => sum + Number(item.amount), 0);
+  }, [monthlyIncomes]);
+
+  const monthlyExpense = useMemo(() => {
+    return transactions
+      .filter((transaction) => {
+        const date = new Date(transaction.date);
+
+        return (
+          date.getMonth() === selectedMonth &&
+          date.getFullYear() === selectedYear
+        );
+      })
+      .reduce((sum, item) => sum + Number(item.amount), 0);
+  }, [transactions, selectedMonth, selectedYear]);
+
+  const monthlyBalance = monthlyIncome - monthlyExpense;
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return incomes;
 
-    return incomes.filter((t) => {
+    if (!q) return monthlyIncomes;
+
+    return monthlyIncomes.filter((t) => {
       const source = (t.source || "").toLowerCase();
       const description = (t.description || "").toLowerCase();
 
       return source.includes(q) || description.includes(q);
     });
-  }, [incomes, search]);
+  }, [monthlyIncomes, search]);
 
   const onDelete = async (id) => {
     const ok = window.confirm("Delete this income?");
     if (!ok) return;
+
     await deleteIncome(id);
   };
 
   const onEditSubmit = async (e) => {
     e.preventDefault();
+
     if (!editingItem?._id) return;
 
     setSaving(true);
+
     try {
       await editIncome(editingItem._id, {
         name: editingItem.name,
@@ -49,6 +111,7 @@ export default function Transaction() {
         description: editingItem.description || "",
         date: editingItem.date?.slice(0, 10),
       });
+
       setEditingItem(null);
     } finally {
       setSaving(false);
@@ -61,62 +124,101 @@ export default function Transaction() {
 
   return (
     <div className="flex-1 p-8">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
-        <h2 className="text-4xl mb-4 md:mb-0 font-bold">Incomes</h2>
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+        <h2 className="text-4xl font-bold">Incomes</h2>
 
-        <div className="relative w-full sm:w-auto">
-          <Search
-            size={18}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-          />
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-            placeholder="Search incomes..."
-            className="bg-[#14141E] border border-gray-700 rounded-xl pl-10 pr-4 py-3 w-full sm:w-80 outline-none"
-          />
+        <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(Number(e.target.value))}
+            className="bg-[#14141E] border border-gray-700 rounded-xl px-4 py-3 outline-none"
+          >
+            {months.map((month, index) => (
+              <option key={month} value={index}>
+                {month}
+              </option>
+            ))}
+          </select>
+
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            className="bg-[#14141E] border border-gray-700 rounded-xl px-4 py-3 outline-none"
+          >
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+
+          <div className="relative">
+            <Search
+              size={18}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
+            />
+
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder="Search incomes..."
+              className="bg-[#14141E] border border-gray-700 rounded-xl pl-10 pr-4 py-3 w-full sm:w-80 outline-none"
+            />
+          </div>
         </div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-6 mb-8">
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
-          <p className="text-sm text-gray-400">TOTAL INCOMES</p>
-          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
+          <p className="text-sm text-gray-400">MONTHLY INCOME</p>
+
+          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all text-green-400">
             Rs.{" "}
-            {Number(totalIncome).toLocaleString("en-IN", {
+            {monthlyIncome.toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
           </h3>
         </div>
+
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">NUMBER OF INCOMES</p>
-          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
-            {incomes.length}
+
+          <h3 className="text-2xl sm:text-4xl font-bold mt-2">
+            {monthlyIncomes.length}
           </h3>
         </div>
+
         <div className="bg-[#14141E] rounded-2xl p-6 border border-gray-800">
           <p className="text-sm text-gray-400">BALANCE</p>
-          <h3 className="text-2xl sm:text-4xl font-bold mt-2 break-all">
+
+          <h3
+            className={`text-2xl sm:text-4xl font-bold mt-2 break-all ${
+              monthlyBalance >= 0 ? "text-green-400" : "text-red-400"
+            }`}
+          >
             Rs.{" "}
-            {Number(totalIncome - expense).toLocaleString("en-IN", {
+            {monthlyBalance.toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
-            <br />
-            {totalIncome - expense < 0 ? (
-              <span className="block text-red-400 text-sm sm:text-lg mt-2">
-                (Over Budget)
-              </span>
-            ) : null}
           </h3>
+
+          {monthlyBalance < 0 && (
+            <p className="text-red-400 mt-2 text-sm">Over Budget</p>
+          )}
         </div>
       </div>
 
       <div className="bg-[#14141E] rounded-2xl border border-gray-800 overflow-hidden">
         {filtered.length === 0 ? (
-          <div className="p-6 text-gray-400">No incomes found.</div>
+          <div className="p-8 text-center text-gray-400">
+            No incomes found for{" "}
+            <span className="font-semibold">
+              {months[selectedMonth]} {selectedYear}
+            </span>
+          </div>
         ) : (
           filtered.map((item) => (
             <div
